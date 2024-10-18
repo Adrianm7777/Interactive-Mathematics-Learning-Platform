@@ -23,7 +23,7 @@ Backend (Django REST Framework)
 Clone the repository:
 
 bash
-git clone https://github.com/your-repo/math_learning_platform.git
+git clone https://github.com/Adrianm7777/Interactive-Mathematics-Learning-Platform.git
 cd math_learning_platform
 Install dependencies:
 
