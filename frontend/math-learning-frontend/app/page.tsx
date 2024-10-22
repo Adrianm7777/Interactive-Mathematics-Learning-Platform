@@ -18,7 +18,6 @@ const ProblemsPage = () => {
   const [feedback, setFeedback] = useState<string>("");
 
   useEffect(() => {
-    // Fetch math problems on component mount
     const fetchProblems = async () => {
       try {
         const data = await getMathProblems();
