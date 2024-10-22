@@ -1,6 +1,6 @@
 import { BASE_URL } from "./endpoints";
 
-export const getMathProblem = async () => {
+export const getMathProblems = async () => {
   const response = await fetch(`${BASE_URL}/problems/`);
   if (!response.ok) {
     throw new Error("Failed to fetch math problems");
