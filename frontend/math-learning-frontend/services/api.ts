@@ -1,7 +1,5 @@
-import { BASE_URL } from "./endpoints";
-
 export const getMathProblems = async () => {
-  const response = await fetch(`${BASE_URL}/problems/`);
+  const response = await fetch("http://localhost:8000/api/problems/");
   if (!response.ok) {
     throw new Error("Failed to fetch math problems");
   }
@@ -10,7 +8,7 @@ export const getMathProblems = async () => {
 };
 
 export const submitAnswer = async (problemId: number, userAnswer: string) => {
-  const response = await fetch(`${BASE_URL}/answers/`, {
+  const response = await fetch("http://localhost:8000/api/answers/", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -28,7 +26,7 @@ export const submitAnswer = async (problemId: number, userAnswer: string) => {
 };
 
 export const getUserProgess = async () => {
-  const response = await fetch(`${BASE_URL}/progress/`);
+  const response = await fetch(`http://localhost:8000/api/progress/`);
   if (!response.ok) {
     throw new Error("Failed to fetch user progress");
   }

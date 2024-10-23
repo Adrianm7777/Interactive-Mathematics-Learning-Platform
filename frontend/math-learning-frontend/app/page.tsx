@@ -1,4 +1,5 @@
 "use client";
+
 import { useState, useEffect } from "react";
 import { getMathProblems, submitAnswer } from "../services/api";
 
@@ -38,6 +39,7 @@ const ProblemsPage = () => {
       } else {
         setFeedback("Incorrect, try again.");
       }
+      console.log(result);
       setUserAnswer("");
       setSelectedProblemId(null);
     } catch (error) {
@@ -47,10 +49,10 @@ const ProblemsPage = () => {
   };
 
   return (
-    <div className="p-4">
+    <div className="p-4 w-dvw h-dvh flex justify-center items-center flex-col">
       <h1 className="text-2xl font-bold mb-4">Math Problems</h1>
       {problems.map((problem) => (
-        <div key={problem.id} className="mb-6">
+        <div key={problem.id} className="mb-6 text-center">
           <p className="mb-2">{problem.question}</p>
           {selectedProblemId === problem.id ? (
             <div>
