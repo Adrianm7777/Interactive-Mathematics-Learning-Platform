@@ -25,6 +25,7 @@ class Progress(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     completed_problem = models.IntegerField(default=0)
     correct_answers = models.IntegerField(default=0)
+    current_difficulty = models.CharField(max_length=50, default='easy')
 
     def __str__(self):
         return f"{self.user.username}'s Progress"
