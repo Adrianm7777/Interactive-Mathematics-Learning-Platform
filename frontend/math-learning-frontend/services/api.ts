@@ -1,7 +1,9 @@
 import { BASE_URL } from "./endpoints";
 
-export const getMathProblems = async () => {
-  const response = await fetch(`${BASE_URL}/problems`);
+export const getMathProblems = async (difficulty: string) => {
+  const response = await fetch(
+    `${BASE_URL}/problems/?difficulty=${difficulty}`
+  );
   if (!response.ok) {
     throw new Error("Failed to fetch math problems");
   }
@@ -27,7 +29,7 @@ export const submitAnswer = async (problemId: number, userAnswer: string) => {
   return response.json();
 };
 
-export const getUserProgess = async () => {
+export const getUserProgress = async () => {
   const response = await fetch(`${BASE_URL}/progress`);
   if (!response.ok) {
     throw new Error("Failed to fetch user progress");

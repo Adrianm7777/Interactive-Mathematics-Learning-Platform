@@ -1,7 +1,11 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { getMathProblems, submitAnswer } from "../services/api";
+import {
+  getMathProblems,
+  submitAnswer,
+  getUserProgress,
+} from "../services/api";
 
 interface Problem {
   id: number;
@@ -17,19 +21,35 @@ const ProblemsPage = () => {
     null
   );
   const [feedback, setFeedback] = useState<string>("");
+  const [userDifficulty, setUserDifficulty] = useState<string>("easy");
+
+  useEffect(() => {
+    const fetchUserProgress = async () => {
+      try {
+        const progress = await getUserProgress();
+        setUserDifficulty(progress.current_difficulty);
+      } catch (error) {
+        console.error("Error fetching user progress:", error);
+      }
+    };
+
+    fetchUserProgress();
+  }, []);
 
   useEffect(() => {
     const fetchProblems = async () => {
       try {
-        const data = await getMathProblems();
+        const data = await getMathProblems(userDifficulty);
         setProblems(data);
       } catch (error) {
         console.error("Error fetching problems:", error);
       }
     };
 
-    fetchProblems();
-  }, []);
+    if (userDifficulty) {
+      fetchProblems();
+    }
+  }, [userDifficulty]);
 
   const handleSubmitAnswer = async (problemId: number) => {
     try {
@@ -51,6 +71,7 @@ const ProblemsPage = () => {
   return (
     <div className="p-4 w-dvw h-dvh flex justify-center items-center flex-col">
       <h1 className="text-2xl font-bold mb-4">Math Problems</h1>
+      <h2 className="text-xl mb-4">Difficulty: {userDifficulty}</h2>{" "}
       {problems.map((problem) => (
         <div key={problem.id} className="mb-6 text-center">
           <p className="mb-2">{problem.question}</p>
