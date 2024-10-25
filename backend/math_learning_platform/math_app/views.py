@@ -2,8 +2,10 @@ from django.shortcuts import get_object_or_404
 from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework.decorators import action
+from django.http import JsonResponse
 from .models import Answer, Problem, Progress
 from .serializers import AnswerSerializer, ProblemSerializer, ProgressSerializer
+from .gpt_neo_model import generate_math_problem  
 
 class ProblemViewSet(viewsets.ModelViewSet):
     queryset = Problem.objects.all()
@@ -15,6 +17,13 @@ class ProblemViewSet(viewsets.ModelViewSet):
         problems = Problem.objects.filter(difficulty=difficulty)
         serializer = self.get_serializer(problems, many=True)
         return Response(serializer.data)
+
+    @action(detail=False, methods=['get'])
+    def generate_problem(self, request):
+        difficulty = request.GET.get('difficulty', 'easy')
+        prompt = f"Generate a {difficulty} math problem: "
+        generated_problem = generate_math_problem(prompt)
+        return JsonResponse({'problem': generated_problem})
 
 class AnswerViewSet(viewsets.ModelViewSet):
     queryset = Answer.objects.all()
@@ -45,8 +54,7 @@ class ProgressViewSet(viewsets.ModelViewSet):
     queryset = Progress.objects.all()
     serializer_class = ProgressSerializer
 
-
-def get_queryset(self):
+    def get_queryset(self):
         return Progress.objects.filter(user=self.request.user)
 
 def adjust_difficulty(progress):
