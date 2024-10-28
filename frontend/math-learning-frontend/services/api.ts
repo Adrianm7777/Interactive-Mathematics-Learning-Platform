@@ -12,7 +12,7 @@ export const getMathProblems = async (difficulty: string) => {
 };
 
 export const submitAnswer = async (problemId: number, userAnswer: string) => {
-  const response = await fetch(`${BASE_URL}/answers/`, {
+  const response = await fetch(`${BASE_URL}/answers/submit_answer/`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
