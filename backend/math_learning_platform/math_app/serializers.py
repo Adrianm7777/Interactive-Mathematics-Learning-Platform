@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Problem, Answer, Progress
+from .models import Problem, Answer
 
 
 class ProblemSerializer(serializers.ModelSerializer):
@@ -10,9 +10,4 @@ class ProblemSerializer(serializers.ModelSerializer):
 class AnswerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Answer
-        fields = '__all__'
-
-class ProgressSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Progress
         fields = '__all__'
